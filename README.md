@@ -4,11 +4,18 @@ I have created an django project where users can add and update records in a tab
 
 
 ### Create a virtualenv
-#### python -m venv venv
-#### Activate the virtual environment
-#### cd django_notification
-#### Install dependency 
-#### pip install -r requirements.txt
+##### python -m venv venv
+##### Activate the virtual environment
+##### cd django_notification
+##### Install dependency 
+##### pip install -r requirements.txt
+
+## Database migratioms, migrate & createsuperuserr
+##### python manage.py makemigrations developer dashboard
+##### python manage.py migrate
+##### python manage.py createsuperuser
+##### pyhton manage.py runserver
+#### http://127.0.0.1:8000/
 
 
 # Project screenshot
