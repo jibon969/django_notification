@@ -1,0 +1,26 @@
+{% extends "dashboard/base_dashboard.html" %}
+{% block title %}Notification List - {{ block.super }} {% endblock %}
+
+{% block content %}
+    <div class="container my-5">
+        <h1 class="text-center">Notification List</h1>
+        <div class="row">
+            {% if notifications.exists %}
+                <div class="col">
+                    {% for notification in notifications %}
+                        {% if not notification.read %}
+                            <div class="notification">
+                                <a href="{{ notification.link }}">{{ notification.message }}</a>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="col">
+                    <h3>No notifications Found</h3>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock content %}
