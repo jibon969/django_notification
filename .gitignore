@@ -41,7 +41,7 @@ docs/_build/
 *.pyc
 __pycache__/
 migrations/
-
+media/
 
 *.so
 .fleet
