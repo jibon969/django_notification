@@ -42,7 +42,7 @@
             <ul class="d-flex align-items-center">
                 <!-- End Notification Nav -->
                 {% if unread_notifications %}
-                    <li class="nav-item dropdown z-index-2">
+                    <li class="nav-item dropdown">
                         <!-- Notification Icon -->
                         <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
                             <i class="bi bi-bell"></i>
@@ -80,6 +80,19 @@
                         </ul>
                         <!-- End Notification Dropdown Items -->
                     </li>
+                {% else %}
+                    <li class="nav-item dropdown">
+                        <!-- Notification Icon -->
+                        <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+                            <i class="bi bi-bell"></i>
+                            <span class="badge bg-primary badge-number">0</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
+                            <li class="dropdown-header">
+                                <a href="{% url 'notifications' %}">No notifications yet</a>
+                            </li>
+                        </ul>
+                    </li>
                 {% endif %}
 
                 <!-- Messages Icon -->
@@ -101,7 +114,7 @@
                                 <img src="{% static 'assets/img/messages-1.jpg' %}" alt="" class="rounded-circle">
                                 <div>
                                     <h4>Maria Hudson</h4>
-                                    <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                                    <p>Hello there</p>
                                     <p>4 hrs. ago</p>
                                 </div>
                             </a>
@@ -114,7 +127,7 @@
                                 <img src="{% static 'assets/img/messages-2.jpg' %}" alt="" class="rounded-circle">
                                 <div>
                                     <h4>Anna Nelson</h4>
-                                    <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                                    <p>Hello there</p>
                                     <p>6 hrs. ago</p>
                                 </div>
                             </a>
