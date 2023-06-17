@@ -1,5 +1,5 @@
 # django_notification
-I have created an app where users can add and update records in a table. Now, I am implementing a notification system, so that when a user adds or updates a record, the author will receive a notification.
+I have created an django project where users can add and update records in a table. Now, I am implementing a notification system, so that when a user adds or updates a record, the author will receive a notification.
 ## Here is an outline for a basic notification system in Django 
 
 
