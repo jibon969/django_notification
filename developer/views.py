@@ -6,7 +6,7 @@ from .models import DeveloperDocument
 from dashboard.models import Notification
 from .forms import DeveloperDocumentForm
 from django.core.exceptions import ObjectDoesNotExist
-
+from django_notification.local_settings import BASE_URL
 
 """=========================================
     Developer Document
@@ -56,9 +56,12 @@ def add_developer_document(request):
             form.save()
             messages.add_message(request, messages.SUCCESS, "Developer document successfully uploaded !")
             # Create a notification for the user
-            notification_message = f'created: {title}'
-            link = "http://127.0.0.1:8000/developer-document/"  # Set the appropriate link if needed
-            # link = None  # Set the appropriate link if needed
+            notification_message = f'Created : {title}'
+            try:
+                # Set the appropriate link if needed
+                link = BASE_URL + "developer-document/"
+            except:
+                link = None
             notification = Notification(user=request.user, message=notification_message, link=link)
             notification.save()
             return redirect('developer-document')
@@ -81,7 +84,7 @@ def update_developer_document(request, id):
         # Update the associated notification message
         try:
             notification = Notification.objects.get(user=request.user, message__contains=obj.title)
-            notification.message = f'Updated: {obj.title}'
+            notification.message = f'Updated : {obj.title}'
             notification.save()
         except ObjectDoesNotExist:
             # Create a new notification if it does not exist
