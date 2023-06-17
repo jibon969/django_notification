@@ -2,22 +2,29 @@
 {% block title %}Notification List - {{ block.super }} {% endblock %}
 
 {% block content %}
-    <div class="container my-5">
+    <div class="container">
         <h1 class="text-center">Notification List</h1>
-        <div class="row">
+        <hr>
+        <div class="row justify-content-center">
             {% if notifications.exists %}
-                <div class="col">
+                <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8">
                     {% for notification in notifications %}
                         {% if not notification.read %}
-                            <div class="notification">
-                                <a href="{{ notification.link }}">{{ notification.message }}</a>
-                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    {% if notification.link.exits %}
+                                        <a href="{{ notification.link }}">>{{ notification.message }}</a>
+                                    {% else %}
+                                        <a href="#">>{{ notification.message }}</a>
+                                    {% endif %}
+                                </li>
+                            </ul>
                         {% endif %}
                     {% endfor %}
                 </div>
             {% else %}
-                <div class="col">
-                    <h3>No notifications Found</h3>
+                <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                    <p class="text-center">No notifications Found</p>
                 </div>
             {% endif %}
         </div>

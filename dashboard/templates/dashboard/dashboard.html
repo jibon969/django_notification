@@ -7,12 +7,6 @@
             <div class="col">
                 <h3 class="text-center">
                     <a href="{% url 'developer-document' %}" class="btn btn-info mt-4">Developer Document</a>
-                    <a href="{% url "notifications" %}">
-                        Notifications
-                        {% if unread_notifications %}
-                            <span class="badge bg-secondary">{{ unread_notifications }}</span>
-                        {% endif %}
-                    </a>
                 </h3>
             </div>
         </div>
