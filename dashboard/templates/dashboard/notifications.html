@@ -1,5 +1,5 @@
 {% extends "dashboard/base_dashboard.html" %}
-{% block title %}Notification List - {{ block.super }} {% endblock %}
+{% block title %}Notification List {{ block.super }} {% endblock %}
 
 {% block content %}
     <div class="container">
@@ -7,20 +7,42 @@
         <hr>
         <div class="row justify-content-center">
             {% if notifications.exists %}
-                <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8">
-                    {% for notification in notifications %}
-                        {% if not notification.read %}
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">
-                                    {% if notification.link.exits %}
-                                        <a href="{{ notification.link }}">>{{ notification.message }}</a>
+                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <table class="table table-hover table-bordered">
+                        <thead>
+                        <tr class="text-center">
+                            <th scope="col">#</th>
+                            <th scope="col">Action</th>
+                            <th scope="col">User</th>
+                            <th scope="col">Link</th>
+                            <th scope="col">Created Time</th>
+                            <th scope="col">Updated Time</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for notification in notifications %}
+                            <tr class="text-center">
+                                <th scope="row">1</th>
+                                <td>
+                                    <a class="btn btn-danger"
+                                       href="{% url 'delete-notifications' notification.id %}">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </td>
+                                <td>{{ notification.user.username }}</td>
+                                <td>
+                                    {% if notification.link %}
+                                        <a href="{{ notification.link }}">{{ notification.message }}</a>
                                     {% else %}
                                         <a href="#">>{{ notification.message }}</a>
                                     {% endif %}
-                                </li>
-                            </ul>
-                        {% endif %}
-                    {% endfor %}
+                                </td>
+                                <td>{{ notification.created_at }}</td>
+                                <td>{{ notification.updated_at }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
             {% else %}
                 <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8">

@@ -2,12 +2,45 @@
 {% block title %}Dashboard {{ block.super }} {% endblock %}
 
 {% block content %}
-    <div class="container my-5">
+    <div class="container">
+        <h2 class="text-center">Welcome to django notification dashboard</h2>
+        <hr>
         <div class="row">
-            <div class="col">
-                <h3 class="text-center">
-                    <a href="{% url 'developer-document' %}" class="btn btn-info mt-4">Developer Document</a>
-                </h3>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body mt-4 pb-3">
+                        <h2 class="text-center">
+                            <i class="fa fa-code" style="font-size: 80px"></i>
+                        </h2>
+                        <h3 class="text-center">
+                            <a href="{% url 'developer-document' %}">Developer Document</a>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body mt-4 pb-3">
+                        <h2 class="text-center">
+                            <i class="fa fa-code" style="font-size: 80px"></i>
+                        </h2>
+                        <h3 class="text-center">
+                            <a href="#">Coding Document</a>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body mt-4 pb-3">
+                        <h2 class="text-center">
+                            <i class="fa fa-code" style="font-size: 80px"></i>
+                        </h2>
+                        <h3 class="text-center">
+                            <a href="#">DevOps Document</a>
+                        </h3>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
