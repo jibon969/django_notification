@@ -75,14 +75,14 @@
                                                 <!-- Update ------->
                                                 {% for p in object_list.paginator.page_range %}
                                                     {% if object_list.number == p %}
-                                                        <a class="btn btn-primary mx-2 my-2"
+                                                        <a class="btn btn-primary btn-sm mx-2 my-2"
                                                            href="{% url 'update-developer-document' obj.id %}?page={{ p }}">
                                                             <i class="fa fa-edit"></i>
                                                         </a>
                                                     {% endif %}
                                                 {% endfor %}
                                                 <!-- Delete ------->
-                                                <a class="btn btn-danger"
+                                                <a class="btn btn-danger btn-sm"
                                                    href="{% url 'delete-developer-document' obj.id %}">
                                                     <i class="fa fa-trash"></i>
                                                 </a>
@@ -93,14 +93,14 @@
                                                     <!-- Update ------->
                                                     {% for p in object_list.paginator.page_range %}
                                                         {% if object_list.number == p %}
-                                                            <a class="btn btn-primary mx-2 my-2"
+                                                            <a class="btn btn-primary btn-sm mx-2 my-2"
                                                                href="{% url 'update-developer-document' obj.id %}?page={{ p }}">
                                                                 <i class="fa fa-edit"></i>
                                                             </a>
                                                         {% endif %}
                                                     {% endfor %}
                                                     <!-- Delete ------->
-                                                    <a class="btn btn-danger"
+                                                    <a class="btn btn-danger btn-sm"
                                                        href="{% url 'delete-developer-document' obj.id %}">
                                                         <i class="fa fa-trash"></i>
                                                     </a>
