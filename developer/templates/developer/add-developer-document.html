@@ -1,0 +1,56 @@
+{% extends 'dashboard/base_dashboard.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load crispy_forms_filters %}
+{% block title %} Add Developer Document {{ block.super }} {% endblock %}
+
+{% block content %}
+
+    <section id="audit-document-section">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-2">
+                    <h4 class="text-center font-italic my-2">
+                        <a href="{% url 'add-developer-document' %}" class="text-decoration-none">Add Developer Document</a>
+                        <span class="text-black-50 mx-2">||</span>
+                        <a href="{% url 'developer-document' %}" class="text-decoration-none">Back to Developer Document</a>
+                    </h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="card">
+                        <div class="card-body mt-4">
+                            <form method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="col-md-4 mb-3">
+                                        {{ form.title|as_crispy_field }}
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        {{ form.file_type|as_crispy_field }}
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        {{ form.date|as_crispy_field }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col mb-3">
+                                        {{ form.details|as_crispy_field }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col mb-3">
+                                        {{ form.file|as_crispy_field }}
+                                    </div>
+                                </div>
+                                <button class="btn btn-primary">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock content %}

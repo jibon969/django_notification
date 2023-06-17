@@ -1,0 +1,222 @@
+{% extends 'dashboard/base_dashboard.html' %}
+{% load static %}
+{% block title %} Developer Document {{ block.super }} {% endblock %}
+
+{% block content %}
+
+    <section id="main-section">
+        <div class="container-fluid">
+            <!-- Back to Dashboard --->
+            <div class="row justify-content-center">
+                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <h4 class="text-center font-italic mt-2">
+                        <a href="{% url 'developer-document' %}" class="text-decoration-none">Developer Document</a>
+                        <span class="text-black-50 mx-2">||</span>
+                        <a href="{% url 'dashboard' %}" class="text-decoration-none">Back to Dashboard</a>
+                    </h4>
+                    <hr>
+                </div>
+            </div>
+            <div class="search-download mb-1">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-1">
+                        <div class="add_button">
+                            <div class="float-start">
+                                <a href="{% url 'add-developer-document' %}" class="btn btn-secondary">
+                                    <i class="fa fa-plus"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- Search Box Here -->
+                        <div class="searchForm">
+                            <div class="float-end">
+                                <form method="GET" class="search" style="border: 10px">
+                                    <div class="input-group">
+                                        <input class="form-control" name="q" type="text" placeholder="Search Here ..."
+                                               value="{{ request.GET.q }}">
+                                        <button type="submit" class="btn btn-secondary search_button_color">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Main table -->
+            <div class="man-table">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                <tr class="text-center ">
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Action</th>
+                                    <th scope="col">Title</th>
+                                    <th scope="col">Type</th>
+                                    <th scope="col">Details</th>
+                                    <th scope="col">File</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Create By</th>
+                                    {% if request.user.is_superuser %}
+                                        <th scope="col">Update By</th>
+                                    {% endif %}
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for obj in object_list %}
+                                    <tr class="text-center">
+                                        <td>{{ forloop.counter }}</td>
+                                        <td>
+                                            {% if request.user.is_superuser %}
+                                                <!-- Update ------->
+                                                {% for p in object_list.paginator.page_range %}
+                                                    {% if object_list.number == p %}
+                                                        <a class="btn btn-primary mx-2 my-2"
+                                                           href="{% url 'update-developer-document' obj.id %}?page={{ p }}">
+                                                            <i class="fa fa-edit"></i>
+                                                        </a>
+                                                    {% endif %}
+                                                {% endfor %}
+                                                <!-- Delete ------->
+                                                <a class="btn btn-danger"
+                                                   href="{% url 'delete-developer-document' obj.id %}">
+                                                    <i class="fa fa-trash"></i>
+                                                </a>
+                                            {% else %}
+                                                {% if obj.approved == "Yes" %}
+                                                    <p class="text-center">Can't access</p>
+                                                {% else %}
+                                                    <!-- Update ------->
+                                                    {% for p in object_list.paginator.page_range %}
+                                                        {% if object_list.number == p %}
+                                                            <a class="btn btn-primary mx-2 my-2"
+                                                               href="{% url 'update-developer-document' obj.id %}?page={{ p }}">
+                                                                <i class="fa fa-edit"></i>
+                                                            </a>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                    <!-- Delete ------->
+                                                    <a class="btn btn-danger"
+                                                       href="{% url 'delete-developer-document' obj.id %}">
+                                                        <i class="fa fa-trash"></i>
+                                                    </a>
+                                                {% endif %}
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {{ obj.title }}
+                                        </td>
+                                        <td>{{ obj.file_type }}</td>
+                                        <td>
+                                            {{ obj.details }}
+                                        </td>
+                                        <td class="text-center">
+                                            {% if obj.file %}
+                                                <a href="{{ obj.file.url }}" target="_blank">
+                                                    <i class="fa fa-download" style="color: black; font-size: 20px"></i>
+                                                </a>
+                                            {% else %}
+                                                <p>No attachment found</p>
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ obj.date }}</td>
+                                        <td>{{ obj.approved }}</td>
+                                        <td>
+                                            <ul class="list-unstyled">
+                                                <li>{{ obj.created_by }}</li>
+                                                <li>
+                                                    <small>{{ obj.created_at }}</small>
+                                                </li>
+                                            </ul>
+                                        </td>
+                                        {% if request.user.is_superuser %}
+                                            <td>
+                                                <ul class="list-unstyled">
+                                                    <li>{{ obj.updated_by }}</li>
+                                                    <li>
+                                                        <small>{{ obj.updated_at }}</small>
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                        {% endif %}
+                                    </tr>
+                                {% empty %}
+                                    <div class="alert alert-info alert-dismissible fade show text-center" role="alert">
+                                        <strong>Oops !</strong> Sorry, no results found - try a different search.
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                aria-label="Close"></button>
+                                    </div>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                            <!-- End Primary Color Bordered Table -->
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="float-end">
+                            {% if object_list %}
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination justify-content-center">
+                                        <li class="page-item {% if not object_list.has_previous %} disabled {% endif %}">
+                                            <a class="page-link" href="?page=1" tabindex="-1">FIRST</a>
+                                        </li>
+                                        <li class="page-item {% if not object_list.has_previous %} disabled {% endif %}">
+                                            <a class="page-link"
+                                               href="{% if object_list.has_previous %}?page={{ object_list.previous_page_number }}{% endif %}"
+                                               tabindex="-1">
+                                                Previous
+                                            </a>
+                                        </li>
+                                        {% if object_list.number|add:'-4' > 1 %}
+                                            <li class="page-item disabled">
+                                                <a class="page-link"
+                                                   href="?page={{ object_list.number|add:'-5' }}">&hellip;</a>
+                                            </li>
+                                        {% endif %}
+                                        {% for i in object_list.paginator.page_range %}
+                                            {% if object_list.number == i %}
+                                                <li class="page-item active" aria-current="page">
+                                                    <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                                                </li>
+                                            {% elif i > object_list.number|add:'-5' and i < object_list.number|add:'5' %}
+                                                <li class="page-item">
+                                                    <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                                                </li>
+                                            {% endif %}
+                                        {% endfor %}
+                                        {% if object_list.paginator.num_pages > object_list.number|add:'4' %}
+                                            <li class="page-item disabled">
+                                                <a class="page-link"
+                                                   href="?page={{ object_list.number|add:'5' }}">&hellip;</a>
+                                            </li>
+                                        {% endif %}
+                                        <li class="page-item {% if not object_list.has_next %} disabled {% endif %}">
+                                            <a class="page-link"
+                                               href="{% if object_list.has_next %} ?page={{ object_list.next_page_number }} {% endif %}">
+                                                Next
+                                            </a>
+                                        </li>
+                                        <li class="page-item {% if not object_list.has_next %} disabled {% endif %}">
+                                            <a class="page-link"
+                                               href="{% if object_list.has_next %} ?page={{ object_list.paginator.num_pages }} {% endif %}">
+                                                LAST
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
